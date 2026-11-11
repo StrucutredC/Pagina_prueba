@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a10">
+  <meta name="description" content="Ernesto — página personal de prueba para experimentar con prompts, interfaces y deploy.">
+  <title>Ernesto — Personal Lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{color-scheme:dark;--bg:#090a10;--panel:#17151f;--text:#f4f2ec;--muted:#b5b7c3;--lime:#d7ff3f;--cyan:#61f5ff;--pink:#ff4fbd}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);font-family:"Space Grotesk",sans-serif;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#17192380 1px,transparent 1px),linear-gradient(90deg,#17192380 1px,transparent 1px);background-size:112px 112px;mask-image:linear-gradient(to bottom,black,transparent 88%);z-index:-1}
+    .shell{max-width:1440px;margin:auto;padding:32px clamp(22px,5.8vw,84px) 28px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px}
+    .brand,.status,.eyebrow,.micro,.footer,.art-label,.art-index,.art-caption{font-family:Orbitron,sans-serif;letter-spacing:.09em}.brand{font-size:12px;font-weight:700}.brand:before{content:"";display:inline-block;width:9px;height:9px;background:var(--lime);margin-right:10px;box-shadow:0 0 15px #d7ff3f88}
+    nav{display:flex;gap:30px;align-items:center;font-size:10px;font-weight:700;letter-spacing:.12em;color:#9295a4}nav a{color:inherit;text-decoration:none}nav a:hover{color:var(--lime)}.status{font-size:10px;color:var(--lime)}
+    main{display:grid;grid-template-columns:minmax(0,1fr) minmax(380px,.92fr);align-items:center;gap:clamp(40px,7vw,100px);padding:clamp(90px,12vh,150px) 0 110px}
+    .eyebrow{font-size:10px;color:var(--lime);margin:0 0 30px}.headline{font-size:clamp(58px,7.2vw,104px);line-height:.91;letter-spacing:-.075em;font-weight:700;margin:0}.headline span{display:block}.name{font-family:Orbitron,sans-serif;font-size:clamp(54px,7.1vw,100px);line-height:1.15;letter-spacing:-.07em;color:var(--lime);margin:10px 0 20px;text-shadow:0 0 32px #d7ff3f25;transition:color .25s,text-shadow .25s;overflow-wrap:anywhere}
+    .underline{width:350px;max-width:80%;height:3px;background:var(--lime);margin:0 0 34px;box-shadow:0 0 18px #d7ff3f55}.description{font-size:17px;line-height:1.65;color:var(--muted);max-width:590px;margin:0}.micro{font-size:10px;color:#777b8b;margin:46px 0 18px}
+    .controls{display:flex;gap:12px;flex-wrap:wrap}.color-button{appearance:none;border:1px solid #343542;background:#171923;color:var(--button-color);padding:13px 18px;min-width:118px;border-radius:4px;font:700 10px Orbitron,sans-serif;letter-spacing:.08em;cursor:pointer;transition:transform .2s,border-color .2s,box-shadow .2s}.color-button:before{content:"";display:inline-block;width:6px;height:6px;background:var(--button-color);margin-right:9px;vertical-align:1px}.color-button:hover,.color-button:focus-visible{transform:translateY(-3px);border-color:var(--button-color);box-shadow:0 0 20px color-mix(in srgb,var(--button-color),transparent 75%);outline:none}.color-button[aria-pressed=true]{border-color:var(--button-color);background:color-mix(in srgb,var(--button-color),#171923 90%)}
+    .hint{font-size:12px;color:#777b8b;margin:18px 0 0}.art-card{position:relative;min-height:650px;background:linear-gradient(145deg,#1d1924,#14131b);border:1px solid #292632;padding:28px;overflow:hidden}.art-card:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(135deg,transparent 40%,#d7ff3f08 100%)}.art-top{display:flex;justify-content:space-between;align-items:center;color:#c4b6a3;font:10px Orbitron,sans-serif;letter-spacing:.08em}.art-index{font-size:20px;color:var(--lime)}
+    .portrait{height:430px;display:grid;place-items:center;position:relative;margin:16px 0 10px}.halo{position:absolute;width:min(70%,330px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#4a3945 0 54%,#302735 55% 72%,transparent 73%);border:1px solid #b7a18a33;box-shadow:0 0 80px #ff4fbd12}
+    .bust{position:relative;width:220px;height:340px;filter:drop-shadow(0 18px 30px #0009)}.hair{position:absolute;top:5px;left:34px;width:152px;height:170px;background:linear-gradient(110deg,#8e8177,#c0b19d 45%,#82776e);border-radius:48% 48% 34% 34%}.face{position:absolute;top:28px;left:49px;width:122px;height:176px;background:linear-gradient(100deg,#b8a993,#e0d2be 48%,#b4a38f);border-radius:48% 48% 44% 44%;z-index:2;clip-path:polygon(8% 0,92% 0,100% 48%,82% 88%,50% 100%,18% 88%,0 48%)}
+    .face:before,.face:after{content:"";position:absolute;top:75px;width:24px;height:3px;background:#65544f}.face:before{left:17px}.face:after{right:17px}.nose{position:absolute;z-index:3;left:107px;top:103px;width:7px;height:40px;background:#a18f7d;border-radius:5px}.mouth{position:absolute;z-index:3;left:91px;top:157px;width:37px;height:4px;background:#8c716c;border-radius:50%}
+    .ear{position:absolute;top:98px;width:24px;height:38px;border-radius:50%;background:#c2b39f;z-index:1}.ear.left{left:37px}.ear.right{right:37px}.neck{position:absolute;z-index:1;top:178px;left:85px;width:52px;height:68px;background:linear-gradient(90deg,#a99a87,#d2c3ae);border-radius:8px}.shoulders{position:absolute;bottom:0;left:8px;width:204px;height:128px;background:linear-gradient(110deg,#95897c,#c6b7a4 50%,#8f8278);border-radius:50% 50% 8px 8px;clip-path:polygon(22% 0,78% 0,100% 100%,0 100%)}
+    .art-caption{font-size:10px;color:#e4d9c9;margin:0 0 10px}.art-note{font-size:13px;color:#a79ba6;margin:0 0 22px}.art-bottom{border-top:1px solid #4b4555;padding-top:18px;color:var(--lime);font:9px Orbitron,sans-serif;letter-spacing:.1em}
+    footer{display:flex;justify-content:space-between;gap:20px;color:#656a79;font:9px Orbitron,sans-serif;letter-spacing:.08em}
+    @media(max-width:900px){main{grid-template-columns:1fr;gap:48px;padding:86px 0 70px}.art-card{min-height:610px}.headline{font-size:clamp(58px,12vw,84px)}.name{font-size:clamp(54px,12vw,82px)}}
+    @media(max-width:560px){.shell{padding:24px 22px}.topbar nav{display:none}.status{font-size:9px}.brand{font-size:10px}main{padding:72px 0 54px;gap:42px}.eyebrow{font-size:9px}.headline{font-size:48px}.name{font-size:clamp(45px,13vw,58px);letter-spacing:-.06em}.description{font-size:14px}.micro{font-size:9px;margin-top:36px}.controls{gap:8px}.color-button{min-width:0;flex:1;padding:12px 10px;font-size:9px}.art-card{min-height:520px;padding:20px}.portrait{height:340px}.bust{transform:scale(.82)}.art-label{font-size:8px}.art-caption{font-size:9px}footer{flex-direction:column;font-size:8px;gap:8px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">E / PERSONAL LAB</div>
+      <nav aria-label="Navegación"><a href="#about">ABOUT</a><a href="#experiments">EXPERIMENTS</a></nav>
+      <div class="status">● SYSTEM ONLINE</div>
+    </header>
+    <main id="about">
+      <section>
+        <p class="eyebrow">PERSONAL WEBSITE / EXPERIMENT 001</p>
+        <h1 class="headline"><span>HELLO,</span><span>I'M</span></h1>
+        <p class="name" id="name" aria-live="polite">ERNESTO</p>
+        <div class="underline"></div>
+        <p class="description">This is my personal test page — a small space to explore prompts, interfaces and the art of deployment.</p>
+        <p class="micro" id="experiments">THREE COLORS. ONE NAME. YOUR MOVE.</p>
+        <div class="controls" role="group" aria-label="Cambiar el color del nombre">
+          <button class="color-button" style="--button-color:var(--cyan)" data-color="#61F5FF" aria-pressed="false">CYAN</button>
+          <button class="color-button" style="--button-color:var(--pink)" data-color="#FF4FBD" aria-pressed="false">MAGENTA</button>
+          <button class="color-button" style="--button-color:var(--lime)" data-color="#D7FF3F" aria-pressed="true">LIME</button>
+        </div>
+        <p class="hint">↳ Select a color to change the name</p>
+      </section>
+      <aside class="art-card" aria-label="Ilustración inspirada en bustos renacentistas">
+        <div class="art-top"><span class="art-label">MUSEUM OF TOMORROW / PLATE 01</span><span class="art-index">01</span></div>
+        <div class="portrait" aria-hidden="true">
+          <div class="halo"></div><div class="bust"><div class="hair"></div><div class="ear left"></div><div class="ear right"></div><div class="face"></div><div class="nose"></div><div class="mouth"></div><div class="neck"></div><div class="shoulders"></div></div>
+        </div>
+        <p class="art-caption">CLASSICAL FORM / DIGITAL FUTURE</p>
+        <p class="art-note">A study in contrast, time and identity.</p>
+        <div class="art-bottom">RENAISSANCE × CYBERNETIC</div>
+      </aside>
+    </main>
+    <footer><span>© 2026 ERNESTO / PERSONAL TEST</span><span>DESIGNED TO EXPERIMENT • BUILT TO DEPLOY</span></footer>
+  </div>
+  <script>
+    const name = document.querySelector("#name");
+    const buttons = document.querySelectorAll(".color-button");
+    buttons.forEach((button) => button.addEventListener("click", () => {
+      const color = button.dataset.color;
+      name.style.color = color;
+      name.style.textShadow = `0 0 32px ${color}55`;
+      buttons.forEach((item) => item.setAttribute("aria-pressed", String(item === button)));
+    }));
+  </script>
+</body>
+</html>
